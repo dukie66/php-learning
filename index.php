@@ -15,7 +15,13 @@ $result = mysqli_query($conn, $sql);
 // Fetch the resulting rows as an array
 $pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
-// Free memory associated with it
+$ingredients = $pizzas[0]['ingredients'];
+
+// Free result from memory
+mysqli_free_result($result);
+
+// Close the commection
+mysqli_close($conn);
 ?>
 
 
@@ -28,13 +34,19 @@ $pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <div class="container">
   <div class="row">
-    <?php foreach ($pizzas as $pizza) { ?>
+    <?php foreach ($pizzas as $pizza) : ?>
 
       <div class="col s6 m3">
         <div class="card z-depth-0">
           <div class="card-content center">
             <h6> <?php echo htmlspecialchars($pizza['title']); ?> </h6>
-            <div> <?php echo htmlspecialchars($pizza['ingredients']); ?> </div>
+            <div>
+              <ul>
+                <?php foreach (explode(',', $pizza['ingredients']) as $ing) : ?>
+                  <li> <?php echo htmlspecialchars($ing) ?> </li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
           </div>
           <div class="card-action right-align">
             <a href="javascript:void(0);" class="brand-text">more info</a>
@@ -42,7 +54,7 @@ $pizzas = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </div>
       </div>
 
-    <?php } ?>
+    <?php endforeach; ?>
   </div>
 </div>
 

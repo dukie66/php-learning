@@ -66,7 +66,6 @@ if (isset($_POST['submit'])) {
   }
 }
 
-
 ?>
 
 
@@ -98,6 +97,7 @@ if (isset($_POST['submit'])) {
       <input type="submit" name="submit" value="Submit" class="btn brand z-depth-0">
     </div>
   </form>
+
 </section>
 
 
